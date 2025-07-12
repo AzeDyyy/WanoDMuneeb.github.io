@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Je t’aime — Lettre d’amour</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle, #ffe6e6, #fff5f8);
+      background: radial-gradient(circle, #fff5f8, #ffe6e9);
       font-family: 'Georgia', serif;
       display: flex;
       justify-content: center;
@@ -18,33 +22,29 @@
     }
 
     .love-letter {
-      background-color: rgba(255, 255, 255, 0.85);
-      border: 2px dotted #cc3366;
-      padding: 40px;
-      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.88);
+      border: 2px solid #d6336c;
+      padding: 50px 40px;
+      border-radius: 24px;
       text-align: center;
-      box-shadow: 0 0 30px rgba(255, 0, 100, 0.2);
+      box-shadow: 0 0 35px rgba(214, 51, 108, 0.3);
       max-width: 90%;
       z-index: 1;
     }
 
     .urdu {
-      font-size: 2em;
-      color: #b30000;
-      margin-bottom: 20px;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      font-size: 2.6em;
+      color: #8b0000;
+      margin-bottom: 30px;
       direction: rtl;
+      line-height: 1.6;
     }
 
     .french {
-      font-size: 1.8em;
-      color: #cc0033;
-      font-style: italic;
-    }
-
-    .signature {
-      margin-top: 30px;
-      font-size: 1em;
-      color: #990033;
+      font-family: 'Parisienne', cursive;
+      font-size: 2.4em;
+      color: #b30047;
     }
 
     .petal {
@@ -54,7 +54,7 @@
       background: linear-gradient(135deg, #ff5e7e, #d8004c);
       border-radius: 50% 50% 50% 0;
       transform: rotate(45deg);
-      opacity: 0.8;
+      opacity: 0.7;
       animation: fall 10s linear infinite;
     }
 
@@ -73,20 +73,18 @@
   <div class="love-letter">
     <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
     <div class="french">Je t’aime</div>
-    <div class="signature">— Une déclaration du cœur</div>
   </div>
 
   <script>
-    // Générer des pétales avec une forme plus réaliste
+    // Crée des pétales élégants
     for (let i = 0; i < 30; i++) {
       const petal = document.createElement("div");
       petal.classList.add("petal");
       petal.style.left = Math.random() * 100 + "vw";
       petal.style.animationDelay = Math.random() * 8 + "s";
-      petal.style.opacity = 0.5 + Math.random() * 0.5;
-      petal.style.width = 15 + Math.random() * 10 + "px";
-      petal.style.height = 25 + Math.random() * 10 + "px";
-      petal.style.zIndex = 0;
+      petal.style.opacity = 0.4 + Math.random() * 0.6;
+      petal.style.width = 15 + Math.random() * 12 + "px";
+      petal.style.height = 25 + Math.random() * 12 + "px";
       document.body.appendChild(petal);
     }
   </script>
