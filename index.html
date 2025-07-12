@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Je t’aime — Lettre d’amour</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -29,7 +29,7 @@
       text-align: center;
       box-shadow: 0 0 35px rgba(214, 51, 108, 0.3);
       max-width: 90%;
-      z-index: 1;
+      z-index: 2;
     }
 
     .urdu {
@@ -47,41 +47,96 @@
       color: #b30047;
     }
 
+    /* Pétales */
     .petal {
       position: absolute;
       width: 20px;
       height: 30px;
       background: linear-gradient(135deg, #ff5e7e, #d8004c);
       border-radius: 50% 50% 50% 0;
-      transform: rotate(45deg);
+      transform-origin: center;
       opacity: 0.7;
-      animation: fall 10s linear infinite;
+      animation-name: fall, sway;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite;
     }
 
+    /* Descente verticale */
     @keyframes fall {
       0% {
         transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
       }
       100% {
         transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
       }
     }
+
+    /* Oscillation horizontale */
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(15px);
+      }
+    }
+
+    /* Tige de rose à gauche */
+    .rose-stem {
+      position: fixed;
+      left: 20px;
+      top: 10vh;
+      height: 80vh;
+      width: 40px;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* SVG styling */
+    svg {
+      height: 100%;
+      width: 100%;
+      overflow: visible;
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="love-letter">
+  <div class="love-letter" role="main" aria-label="Lettre d'amour">
     <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
     <div class="french">Je t’aime</div>
   </div>
 
+  <div class="rose-stem" aria-hidden="true">
+    <svg viewBox="0 0 40 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- Tige -->
+      <line x1="20" y1="390" x2="20" y2="10" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
+      
+      <!-- Feuilles -->
+      <path fill="#388e3c" d="M20 100 C5 80, 5 60, 20 40 C35 60, 35 80, 20 100 Z"/>
+      <path fill="#388e3c" d="M20 180 C5 160, 5 140, 20 120 C35 140, 35 160, 20 180 Z"/>
+      <path fill="#388e3c" d="M20 260 C5 240, 5 220, 20 200 C35 220, 35 240, 20 260 Z"/>
+      <path fill="#388e3c" d="M20 340 C5 320, 5 300, 20 280 C35 300, 35 320, 20 340 Z"/>
+      
+      <!-- Fleur stylisée -->
+      <circle cx="20" cy="10" r="15" fill="#c62828" />
+      <circle cx="20" cy="10" r="12" fill="#e53935" />
+      <circle cx="20" cy="10" r="9" fill="#b71c1c" />
+      <circle cx="20" cy="10" r="6" fill="#ef5350" />
+    </svg>
+  </div>
+
   <script>
-    // Crée des pétales élégants
     for (let i = 0; i < 30; i++) {
       const petal = document.createElement("div");
       petal.classList.add("petal");
       petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDelay = Math.random() * 8 + "s";
+      petal.style.animationDelay = (Math.random() * 10) + "s, " + (Math.random() * 4) + "s";
+      petal.style.animationDuration = (7 + Math.random() * 5) + "s, 3s";
       petal.style.opacity = 0.4 + Math.random() * 0.6;
       petal.style.width = 15 + Math.random() * 12 + "px";
       petal.style.height = 25 + Math.random() * 12 + "px";
