@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Je t’aime — Lettre d’amour</title>
+  <title>Je t’aime — Lettre d’amour réaliste</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet" />
@@ -13,58 +13,63 @@
       padding: 0;
       background: radial-gradient(circle, #fff5f8, #ffe6e9);
       font-family: 'Georgia', serif;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
     }
 
     .love-letter {
-      background-color: rgba(255, 255, 255, 0.88);
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.9);
       border: 2px solid #d6336c;
-      padding: 50px 40px;
-      border-radius: 24px;
+      padding: 70px 60px;
+      border-radius: 28px;
       text-align: center;
-      box-shadow: 0 0 35px rgba(214, 51, 108, 0.3);
-      max-width: 90%;
-      z-index: 2;
+      box-shadow: 0 0 45px rgba(214, 51, 108, 0.35);
+      max-width: 600px;
+      z-index: 10;
     }
 
     .urdu {
       font-family: 'Noto Nastaliq Urdu', serif;
-      font-size: 2.6em;
+      font-size: 3em;
       color: #8b0000;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       direction: rtl;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .french {
       font-family: 'Parisienne', cursive;
-      font-size: 2.4em;
+      font-size: 2.8em;
       color: #b30047;
     }
 
-    /* Pétales */
+    /* Conteneur pétales */
     .petal {
-      position: absolute;
-      width: 20px;
+      position: fixed;
+      top: -60px;
+      width: 30px;
       height: 30px;
-      background: linear-gradient(135deg, #ff5e7e, #d8004c);
-      border-radius: 50% 50% 50% 0;
-      transform-origin: center;
-      opacity: 0.7;
-      animation-name: fall, sway;
-      animation-timing-function: linear, ease-in-out;
-      animation-iteration-count: infinite;
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.8;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
     }
 
-    /* Descente verticale */
-    @keyframes fall {
+    /* Animation pétales */
+    @keyframes fallPetal {
       0% {
-        transform: translateY(-10vh) rotate(0deg);
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      90% {
         opacity: 1;
       }
       100% {
@@ -73,35 +78,18 @@
       }
     }
 
-    /* Oscillation horizontale */
-    @keyframes sway {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(15px);
-      }
-    }
-
-    /* Tige de rose à gauche */
-    .rose-stem {
+    /* Rose sur le côté */
+    .rose-side {
       position: fixed;
       left: 20px;
-      top: 10vh;
-      height: 80vh;
-      width: 40px;
-      z-index: 1;
-      pointer-events: none;
+      bottom: 0;
+      height: 90vh;
+      width: auto;
+      z-index: 5;
       user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 5px rgba(179, 0, 71, 0.7));
     }
-
-    /* SVG styling */
-    svg {
-      height: 100%;
-      width: 100%;
-      overflow: visible;
-    }
-
   </style>
 </head>
 <body>
@@ -111,35 +99,67 @@
     <div class="french">Je t’aime</div>
   </div>
 
-  <div class="rose-stem" aria-hidden="true">
-    <svg viewBox="0 0 40 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-      <!-- Tige -->
-      <line x1="20" y1="390" x2="20" y2="10" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
-      
-      <!-- Feuilles -->
-      <path fill="#388e3c" d="M20 100 C5 80, 5 60, 20 40 C35 60, 35 80, 20 100 Z"/>
-      <path fill="#388e3c" d="M20 180 C5 160, 5 140, 20 120 C35 140, 35 160, 20 180 Z"/>
-      <path fill="#388e3c" d="M20 260 C5 240, 5 220, 20 200 C35 220, 35 240, 20 260 Z"/>
-      <path fill="#388e3c" d="M20 340 C5 320, 5 300, 20 280 C35 300, 35 320, 20 340 Z"/>
-      
-      <!-- Fleur stylisée -->
-      <circle cx="20" cy="10" r="15" fill="#c62828" />
-      <circle cx="20" cy="10" r="12" fill="#e53935" />
-      <circle cx="20" cy="10" r="9" fill="#b71c1c" />
-      <circle cx="20" cy="10" r="6" fill="#ef5350" />
-    </svg>
-  </div>
+  <!-- Rose sur le côté -->
+  <img class="rose-side" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=80" alt="Rose rouge élégante" />
 
   <script>
-    for (let i = 0; i < 30; i++) {
-      const petal = document.createElement("div");
-      petal.classList.add("petal");
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDelay = (Math.random() * 10) + "s, " + (Math.random() * 4) + "s";
-      petal.style.animationDuration = (7 + Math.random() * 5) + "s, 3s";
-      petal.style.opacity = 0.4 + Math.random() * 0.6;
-      petal.style.width = 15 + Math.random() * 12 + "px";
-      petal.style.height = 25 + Math.random() * 12 + "px";
+    const petalImages = [
+      'https://cdn-icons-png.flaticon.com/512/616/616408.png', // pétale rose 1
+      'https://cdn-icons-png.flaticon.com/512/616/616405.png', // pétale rose 2
+      'https://cdn-icons-png.flaticon.com/512/616/616400.png'  // pétale rose 3
+    ];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    for(let i=0; i<40; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+
+      // Choisir une image pétale au hasard
+      const img = petalImages[Math.floor(Math.random() * petalImages.length)];
+      petal.style.backgroundImage = `url(${img})`;
+
+      // Taille aléatoire
+      const size = random(20, 40);
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+
+      // Position horizontale aléatoire
+      petal.style.left = random(0, 100) + 'vw';
+
+      // Durée de chute entre 7s et 15s
+      const duration = random(7, 15);
+
+      // Delay aléatoire pour cascade naturelle
+      const delay = random(0, 15);
+
+      petal.style.animation = `fallPetal ${duration}s linear ${delay}s forwards`;
+
+      // Pour mouvement latéral naturel via JS
+      let startX = parseFloat(petal.style.left);
+      let amplitude = random(10, 30);
+      let frequency = random(0.002, 0.006);
+
+      // Animation horizontale douce via JS
+      let frame = 0;
+      function animate() {
+        frame++;
+        // Oscillation en sinusoïde pour déplacement horizontal
+        let offsetX = amplitude * Math.sin(frame * frequency);
+        petal.style.left = (startX + offsetX) + 'vw';
+        if(frame < duration * 60) { // approx 60fps
+          requestAnimationFrame(animate);
+        } else {
+          // Reset position top et relancer animation
+          petal.style.top = '-60px';
+          frame = 0;
+          requestAnimationFrame(animate);
+        }
+      }
+      requestAnimationFrame(animate);
+
       document.body.appendChild(petal);
     }
   </script>
