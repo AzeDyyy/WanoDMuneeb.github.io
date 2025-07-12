@@ -2,27 +2,81 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Traduction</title>
+  <title>Lettre d’amour</title>
   <style>
     body {
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      background: #f0f0f0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #fff0f0, #ffe6e6);
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
-    .translation {
-      font-size: 2em;
+
+    .content {
       text-align: center;
-      color: #222;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+    }
+
+    .urdu {
+      font-size: 2em;
+      color: #b30000;
+      margin-bottom: 20px;
+      direction: rtl;
+    }
+
+    .french {
+      font-size: 1.8em;
+      color: #cc0000;
+      font-style: italic;
+    }
+
+    .petal {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #ff4d4d, #cc0000);
+      border-radius: 50% 50% 50% 50%;
+      opacity: 0.8;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="translation">
-    Je t’aime
+  <div class="content">
+    <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
+    <div class="french">Je t’aime</div>
   </div>
+
+  <!-- Générer quelques pétales -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const petal = document.createElement("div");
+      petal.classList.add("petal");
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDelay = Math.random() * 10 + "s";
+      petal.style.opacity = 0.5 + Math.random() * 0.5;
+      document.body.appendChild(petal);
+    }
+  </script>
 </body>
 </html>
