@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Je t’aime — Lettre d’amour</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -24,17 +23,17 @@
     .love-letter {
       background-color: rgba(255, 255, 255, 0.88);
       border: 2px solid #d6336c;
-      padding: 90px 70px; /* agrandi */
+      padding: 90px 70px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 0 45px rgba(214, 51, 108, 0.4); /* un peu plus d'ombre */
-      max-width: 700px; /* plus large */
+      box-shadow: 0 0 45px rgba(214, 51, 108, 0.4);
+      max-width: 700px;
       z-index: 1;
     }
 
     .urdu {
       font-family: 'Noto Nastaliq Urdu', serif;
-      font-size: 3.2em; /* plus grand */
+      font-size: 3.2em;
       color: #8b0000;
       margin-bottom: 40px;
       direction: rtl;
@@ -43,12 +42,13 @@
 
     .french {
       font-family: 'Parisienne', cursive;
-      font-size: 3em; /* plus grand */
+      font-size: 3em;
       color: #b30047;
     }
 
     .petal {
-      position: absolute;
+      position: fixed; /* fixe pour rester visible dans viewport */
+      top: 0; /* commence pile en haut */
       width: 20px;
       height: 30px;
       background: linear-gradient(135deg, #ff5e7e, #d8004c);
@@ -56,11 +56,13 @@
       transform: rotate(45deg);
       opacity: 0.7;
       animation: fall 10s linear infinite;
+      pointer-events: none;
+      user-select: none;
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(0vh) rotate(0deg); /* commence visible en haut */
+        transform: translateY(0) rotate(0deg);
       }
       100% {
         transform: translateY(110vh) rotate(360deg);
@@ -70,21 +72,20 @@
 </head>
 <body>
 
-  <div class="love-letter">
+  <div class="love-letter" role="main" aria-label="Lettre d'amour">
     <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
     <div class="french">Je t’aime</div>
   </div>
 
   <script>
-    // Crée des pétales élégants
     for (let i = 0; i < 30; i++) {
-      const petal = document.createElement("div");
-      petal.classList.add("petal");
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDelay = Math.random() * 8 + "s";
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDelay = Math.random() * 10 + 's';
       petal.style.opacity = 0.4 + Math.random() * 0.6;
-      petal.style.width = 15 + Math.random() * 12 + "px";
-      petal.style.height = 25 + Math.random() * 12 + "px";
+      petal.style.width = 15 + Math.random() * 12 + 'px';
+      petal.style.height = 25 + Math.random() * 12 + 'px';
       document.body.appendChild(petal);
     }
   </script>
