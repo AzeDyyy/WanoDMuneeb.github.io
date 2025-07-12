@@ -23,35 +23,35 @@
 
     .love-letter {
       position: relative;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       border: 2px solid #d6336c;
-      padding: 70px 60px;
-      border-radius: 28px;
+      padding: 100px 80px;
+      border-radius: 30px;
       text-align: center;
-      box-shadow: 0 0 45px rgba(214, 51, 108, 0.35);
-      max-width: 600px;
+      box-shadow: 0 0 50px rgba(214, 51, 108, 0.35);
+      max-width: 700px;
       z-index: 10;
     }
 
     .urdu {
       font-family: 'Noto Nastaliq Urdu', serif;
-      font-size: 3em;
+      font-size: 3.5em;
       color: #8b0000;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       direction: rtl;
       line-height: 1.5;
     }
 
     .french {
       font-family: 'Parisienne', cursive;
-      font-size: 2.8em;
+      font-size: 3em;
       color: #b30047;
     }
 
-    /* Conteneur pétales */
+    /* Pétales */
     .petal {
       position: fixed;
-      top: -60px;
+      top: 0; /* Commence visible en haut */
       width: 30px;
       height: 30px;
       background-size: contain;
@@ -63,7 +63,6 @@
       animation-fill-mode: forwards;
     }
 
-    /* Animation pétales */
     @keyframes fallPetal {
       0% {
         transform: translateY(0) rotate(0deg);
@@ -78,18 +77,6 @@
       }
     }
 
-    /* Rose sur le côté */
-    .rose-side {
-      position: fixed;
-      left: 20px;
-      bottom: 0;
-      height: 90vh;
-      width: auto;
-      z-index: 5;
-      user-select: none;
-      pointer-events: none;
-      filter: drop-shadow(0 0 5px rgba(179, 0, 71, 0.7));
-    }
   </style>
 </head>
 <body>
@@ -98,9 +85,6 @@
     <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
     <div class="french">Je t’aime</div>
   </div>
-
-  <!-- Rose sur le côté -->
-  <img class="rose-side" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=80" alt="Rose rouge élégante" />
 
   <script>
     const petalImages = [
@@ -117,44 +101,37 @@
       const petal = document.createElement('div');
       petal.classList.add('petal');
 
-      // Choisir une image pétale au hasard
+      // Image pétale aléatoire
       const img = petalImages[Math.floor(Math.random() * petalImages.length)];
       petal.style.backgroundImage = `url(${img})`;
 
       // Taille aléatoire
-      const size = random(20, 40);
+      const size = random(25, 40);
       petal.style.width = size + 'px';
       petal.style.height = size + 'px';
 
-      // Position horizontale aléatoire
+      // Position horizontale aléatoire en vw
       petal.style.left = random(0, 100) + 'vw';
 
-      // Durée de chute entre 7s et 15s
-      const duration = random(7, 15);
+      // Durée chute entre 8s et 16s
+      const duration = random(8, 16);
 
-      // Delay aléatoire pour cascade naturelle
-      const delay = random(0, 15);
+      // Delay aléatoire entre 0 et 16s
+      const delay = random(0, 16);
 
       petal.style.animation = `fallPetal ${duration}s linear ${delay}s forwards`;
 
-      // Pour mouvement latéral naturel via JS
+      // Oscillation horizontale via JS
       let startX = parseFloat(petal.style.left);
-      let amplitude = random(10, 30);
+      let amplitude = random(10, 25);
       let frequency = random(0.002, 0.006);
 
-      // Animation horizontale douce via JS
       let frame = 0;
       function animate() {
         frame++;
-        // Oscillation en sinusoïde pour déplacement horizontal
         let offsetX = amplitude * Math.sin(frame * frequency);
         petal.style.left = (startX + offsetX) + 'vw';
-        if(frame < duration * 60) { // approx 60fps
-          requestAnimationFrame(animate);
-        } else {
-          // Reset position top et relancer animation
-          petal.style.top = '-60px';
-          frame = 0;
+        if(frame < duration * 60) {
           requestAnimationFrame(animate);
         }
       }
