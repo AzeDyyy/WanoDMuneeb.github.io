@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Je t’aime — Lettre d’amour réaliste</title>
+  <meta charset="UTF-8">
+  <title>Je t’aime — Lettre d’amour</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Parisienne&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -13,130 +13,78 @@
       padding: 0;
       background: radial-gradient(circle, #fff5f8, #ffe6e9);
       font-family: 'Georgia', serif;
-      overflow: hidden;
-      height: 100vh;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
 
     .love-letter {
-      position: relative;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.88);
       border: 2px solid #d6336c;
-      padding: 100px 80px;
-      border-radius: 30px;
+      padding: 90px 70px; /* agrandi */
+      border-radius: 24px;
       text-align: center;
-      box-shadow: 0 0 50px rgba(214, 51, 108, 0.35);
-      max-width: 700px;
-      z-index: 10;
+      box-shadow: 0 0 45px rgba(214, 51, 108, 0.4); /* un peu plus d'ombre */
+      max-width: 700px; /* plus large */
+      z-index: 1;
     }
 
     .urdu {
       font-family: 'Noto Nastaliq Urdu', serif;
-      font-size: 3.5em;
+      font-size: 3.2em; /* plus grand */
       color: #8b0000;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       direction: rtl;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .french {
       font-family: 'Parisienne', cursive;
-      font-size: 3em;
+      font-size: 3em; /* plus grand */
       color: #b30047;
     }
 
-    /* Pétales */
     .petal {
-      position: fixed;
-      top: 0; /* Commence visible en haut */
-      width: 30px;
+      position: absolute;
+      width: 20px;
       height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.8;
-      animation-timing-function: linear;
-      animation-fill-mode: forwards;
+      background: linear-gradient(135deg, #ff5e7e, #d8004c);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(45deg);
+      opacity: 0.7;
+      animation: fall 10s linear infinite;
     }
 
-    @keyframes fallPetal {
+    @keyframes fall {
       0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      90% {
-        opacity: 1;
+        transform: translateY(0vh) rotate(0deg); /* commence visible en haut */
       }
       100% {
         transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
       }
     }
-
   </style>
 </head>
 <body>
 
-  <div class="love-letter" role="main" aria-label="Lettre d'amour">
+  <div class="love-letter">
     <div class="urdu">میں اپ سے پیار کرتا ہوں</div>
     <div class="french">Je t’aime</div>
   </div>
 
   <script>
-    const petalImages = [
-      'https://cdn-icons-png.flaticon.com/512/616/616408.png', // pétale rose 1
-      'https://cdn-icons-png.flaticon.com/512/616/616405.png', // pétale rose 2
-      'https://cdn-icons-png.flaticon.com/512/616/616400.png'  // pétale rose 3
-    ];
-
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    for(let i=0; i<40; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-
-      // Image pétale aléatoire
-      const img = petalImages[Math.floor(Math.random() * petalImages.length)];
-      petal.style.backgroundImage = `url(${img})`;
-
-      // Taille aléatoire
-      const size = random(25, 40);
-      petal.style.width = size + 'px';
-      petal.style.height = size + 'px';
-
-      // Position horizontale aléatoire en vw
-      petal.style.left = random(0, 100) + 'vw';
-
-      // Durée chute entre 8s et 16s
-      const duration = random(8, 16);
-
-      // Delay aléatoire entre 0 et 16s
-      const delay = random(0, 16);
-
-      petal.style.animation = `fallPetal ${duration}s linear ${delay}s forwards`;
-
-      // Oscillation horizontale via JS
-      let startX = parseFloat(petal.style.left);
-      let amplitude = random(10, 25);
-      let frequency = random(0.002, 0.006);
-
-      let frame = 0;
-      function animate() {
-        frame++;
-        let offsetX = amplitude * Math.sin(frame * frequency);
-        petal.style.left = (startX + offsetX) + 'vw';
-        if(frame < duration * 60) {
-          requestAnimationFrame(animate);
-        }
-      }
-      requestAnimationFrame(animate);
-
+    // Crée des pétales élégants
+    for (let i = 0; i < 30; i++) {
+      const petal = document.createElement("div");
+      petal.classList.add("petal");
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDelay = Math.random() * 8 + "s";
+      petal.style.opacity = 0.4 + Math.random() * 0.6;
+      petal.style.width = 15 + Math.random() * 12 + "px";
+      petal.style.height = 25 + Math.random() * 12 + "px";
       document.body.appendChild(petal);
     }
   </script>
